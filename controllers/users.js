@@ -33,7 +33,7 @@ module.exports.getUserId = (req, res) => {
       return res.status(OK_STATUS_CODE).send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         return res
           .status(ERROR_BAD_REQUEST)
           .send({
@@ -52,7 +52,7 @@ module.exports.createUser = (req, res) => {
   User.create({ name, about, avatar })
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         return res.status(ERROR_BAD_REQUEST).send({
           message: 'Переданы некорректные данные при создании пользователя.',
         });
@@ -69,7 +69,7 @@ module.exports.updateUser = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true })
     .then((user) => res.status(OK_STATUS_CODE).send(user))
     .catch((err) => {
-      if (err === 'CastError') {
+      if (err === 'CastError' || err.name === 'ValidationError') {
         return res.status(ERROR_BAD_REQUEST).send({
           message: 'Переданы некорректные данные при обновлении профиля.',
         });
@@ -91,7 +91,7 @@ module.exports.updateAvatar = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
     .then((user) => res.status(OK_STATUS_CODE).send(user))
     .catch((err) => {
-      if (err === 'CastError') {
+      if (err === 'CastError' || err.name === 'ValidationError') {
         return res.status(ERROR_BAD_REQUEST).send({
           message: 'Переданы некорректные данные при обновлении профиля.',
         });
