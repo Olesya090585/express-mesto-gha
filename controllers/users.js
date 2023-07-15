@@ -10,11 +10,9 @@ module.exports.getUsers = (req, res) => {
     .then((users) => res.status(OK_STATUS_CODE).send(users))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res
-          .status(ERROR_BAD_REQUEST)
-          .send({
-            message: 'Переданы некорректные данные при создании пользователя.',
-          });
+        return res.status(ERROR_BAD_REQUEST).send({
+          message: 'Переданы некорректные данные при создании пользователя.',
+        });
       }
       return res
         .status(ERROR_INTERNAL_SERVER)
@@ -34,11 +32,9 @@ module.exports.getUserId = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
-        return res
-          .status(ERROR_BAD_REQUEST)
-          .send({
-            message: 'Переданы некорректные данные при создании пользователя.',
-          });
+        return res.status(ERROR_BAD_REQUEST).send({
+          message: 'Переданы некорректные данные при создании пользователя.',
+        });
       }
       return res
         .status(ERROR_INTERNAL_SERVER)
@@ -67,6 +63,7 @@ module.exports.updateUser = (req, res) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true })
+    .orFail()
     .then((user) => res.status(OK_STATUS_CODE).send(user))
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
