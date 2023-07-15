@@ -69,7 +69,7 @@ module.exports.updateUser = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true })
     .then((user) => res.status(OK_STATUS_CODE).send(user))
     .catch((err) => {
-      if (err === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         return res.status(ERROR_BAD_REQUEST).send({
           message: 'Переданы некорректные данные при обновлении профиля.',
         });
@@ -91,7 +91,7 @@ module.exports.updateAvatar = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
     .then((user) => res.status(OK_STATUS_CODE).send(user))
     .catch((err) => {
-      if (err === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         return res.status(ERROR_BAD_REQUEST).send({
           message: 'Переданы некорректные данные при обновлении профиля.',
         });
