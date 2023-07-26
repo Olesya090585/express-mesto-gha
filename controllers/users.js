@@ -116,10 +116,8 @@ module.exports.login = (req, res, next) => {
         const token = jwt.sign({ _id: user._id }, 'super-strong-secret', {
           expiresIn: '7d',
         });
-        res.send({ token });
-      } else {
-        return next(new UnauthorizedError('Необходима авторизация.'));
-      }
+        return res.send({ token });
+      } return next(new UnauthorizedError('Необходима авторизация.'));
     })
     .catch(next);
 };
