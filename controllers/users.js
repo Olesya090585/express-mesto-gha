@@ -110,14 +110,15 @@ module.exports.updateAvatar = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  User.findUserByCredentials(email, password)
     .then((user) => {
       if (user) {
         const token = jwt.sign({ _id: user._id }, 'super-strong-secret', {
           expiresIn: '7d',
         });
         return res.send({ token });
-      } return next(new UnauthorizedError('Необходима авторизация.'));
+      }
+      return next(new UnauthorizedError('Необходима авторизация.'));
     })
     .catch(next);
 };
