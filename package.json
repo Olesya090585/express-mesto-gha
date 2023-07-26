@@ -10,7 +10,7 @@
     "dev": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Olesya Varnakova",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.44.0",
@@ -19,7 +19,11 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "celebrate": "^15.0.1",
     "express": "^4.18.2",
-    "mongoose": "^7.3.3"
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.3.3",
+    "validator": "^13.9.0"
   }
 }
