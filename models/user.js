@@ -9,12 +9,21 @@ const userSchema = new mongoose.Schema({
     required: false,
     maxlength: 30,
     default: 'Жак-Ив Кусто',
+    validate: {
+      validator: ({ length }) => length >= 2 && length <= 30,
+      message: 'Колличество символов должно быть от 2 до 30 символов',
+    },
   },
   about: {
     type: String,
     required: false,
     maxlength: 30,
     default: 'Исследователь',
+    validate: {
+      validator: ({ length }) => length >= 2 && length <= 30,
+      message:
+        'Колличество символов должно быть от 2 до 30 символов',
+    },
   },
   avatar: {
     type: String,
@@ -40,6 +49,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
     select: false,
+    validate: {
+      validator: ({ length }) => length >= 8,
+      message: 'Пароль должен состоять минимум из 8 символов',
+    },
   },
 });
 
